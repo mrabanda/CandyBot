@@ -1,0 +1,23 @@
+{
+  "name": "StressBot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "child-process-promise": "^2.2.1",
+    "clarifai": "^2.2.0",
+    "express": "^4.15.3",
+    "fs-extra": "^3.0.1",
+    "path": "^0.12.7",
+    "request": "^2.81.0",
+    "twilio": "^3.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
