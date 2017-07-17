@@ -26,9 +26,10 @@ const clarifai = new Clarifai.App(
 );
 
 //============================================================================================================
-// EXPRESS APP
+// MAIN APP LOGIC
 //============================================================================================================
 
+// initializes app
 function runApp() {
   // set the file name to the current date
   const pictureName = `${Date.now()}.jpg`
@@ -53,7 +54,7 @@ function runApp() {
     .catch(err => console.error(err))
 }
 
-
+// EXPRESS ROUTES
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
 app.get('/', (req, res) => {
@@ -61,11 +62,13 @@ app.get('/', (req, res) => {
   res.send('WELLCOME TO STRESS BOT');
 })
 
+// this route initializes the app
 app.get('/start', (req, res) => {
   runApp();
   res.send('WELLCOME TO STRESS BOT');
 })
 
+// app should redirect here if user is stressed
 app.get('/stressed', (req, res) => {
   res.send("Hey you're stressed, Take it easy")
 })
@@ -74,7 +77,9 @@ app.listen(3000, () => {
   console.log('Example app listening on port 3000!')
 })
 
+// executes stress reliever code
 function handleStress() {
+  // this python script turns the servo motor for 1 second
   let candyScript = `python Adafruit-Raspberry-Pi-Python-Code/Adafruit_PWM_Servo_Driver/Servo_Example.py 1`;
   let text = "Hey you should calm down there buddy";
   let voice = "You are looking a bit stressed, Maybe you should take a walk"
@@ -91,7 +96,6 @@ function handleStress() {
 function clarifaiPredict(base64File) {
   clarifai.models.predict("StressTest", {base64: base64File})
     .then((response) => {
-      // do something with response
       var detected = response.outputs[0].data.concepts;
       console.log(detected.length);
       detected.map((element) => {
