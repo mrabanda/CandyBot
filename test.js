@@ -54,6 +54,19 @@ function runApp() {
     .catch(err => console.error(err))
 }
 
+// executes stress reliever code
+function handleStress() {
+  // this python script turns the servo motor for 1 second
+  let candyScript = `python Adafruit-Raspberry-Pi-Python-Code/Adafruit_PWM_Servo_Driver/Servo_Example.py 1`;
+  let text = "Hey you should calm down there buddy";
+  let voice = "You are looking a bit stressed, Maybe you should take a walk"
+  textMessage(text, myNumber);
+  // voiceMessage(voice, myNumber);
+  voiceSound(`${baseURL}/bob.mp3`, myNumber);
+  // Dispense Candy!!!
+  exec(candyScript);
+}
+
 // EXPRESS ROUTES
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
@@ -76,19 +89,6 @@ app.get('/stressed', (req, res) => {
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!')
 })
-
-// executes stress reliever code
-function handleStress() {
-  // this python script turns the servo motor for 1 second
-  let candyScript = `python Adafruit-Raspberry-Pi-Python-Code/Adafruit_PWM_Servo_Driver/Servo_Example.py 1`;
-  let text = "Hey you should calm down there buddy";
-  let voice = "You are looking a bit stressed, Maybe you should take a walk"
-  textMessage(text, myNumber);
-  // voiceMessage(voice, myNumber);
-  voiceSound(`${baseURL}/bob.mp3`, myNumber);
-  // Dispense Candy!!!
-  exec(candyScript);
-}
 
 //============================================================================================================
 // CLARIFAI FUNCTIONS
